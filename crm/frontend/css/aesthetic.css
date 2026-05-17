@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* --- ULTRA MODERN REDESIGN OVERRIDES --- */
+
+:root {
+    /* Brand Gradients */
+    --gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    --gradient-success: linear-gradient(135deg, #059669 0%, #10B981 100%);
+    --gradient-danger: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+    --gradient-warning: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+    --gradient-info: linear-gradient(135deg, #0284C7 0%, #3B82F6 100%);
+
+    /* Solid Brand */
+    --primary-color: #6366f1;
+    --primary-hover: #4F46E5;
+    --danger-color: #EF4444;
+    --success-color: #10B981;
+
+    /* Theme - Ultra Modern Dark */
+    --bg-color: #030712;
+    --surface-color: #111827;
+    --surface-hover: #1F2937;
+    --border-color: rgba(255, 255, 255, 0.06);
+    
+    --sidebar-bg: #0B0F19;
+    --sidebar-hover: rgba(99, 102, 241, 0.1);
+
+    /* Typography */
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+
+    /* Geometry */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+
+    /* Shadows & Effects */
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.05), transparent 25%);
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Cards Restyled */
+.glass-card {
+    background: rgba(17, 24, 39, 0.7) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: var(--glass-border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all 0.3s ease !important;
+}
+
+.item-card {
+    background: var(--surface-color) !important;
+    border: var(--glass-border) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 1.25rem !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.item-card:hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    background: var(--surface-hover) !important;
+}
+
+/* Buttons Restyled */
+.btn-primary {
+    background: var(--gradient-primary) !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: var(--glass-border) !important;
+    border-radius: var(--radius-sm) !important;
+    color: var(--text-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Sidebar Restyled */
+.sidebar {
+    background: var(--sidebar-bg) !important;
+    border-right: var(--glass-border) !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.4) !important;
+}
+
+.nav-item {
+    border-radius: var(--radius-md) !important;
+    transition: all 0.2s ease !important;
+}
+
+.nav-item.active, .nav-item:hover {
+    background: var(--sidebar-hover) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Inputs & Forms Restyled */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.form-group.full-width, .full-width {
+    grid-column: 1 / -1;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper i {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.input-icon-wrapper input, .input-icon-wrapper select {
+    padding-left: 2.75rem !important;
+    width: 100%;
+}
+
+.input-icon-wrapper input:focus + i, .input-icon-wrapper select:focus + i {
+    color: var(--primary-color);
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+input, select, textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text-primary) !important;
+    padding: 0.85rem 1rem !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.2s ease !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Stat Cards */
+.stat-card {
+    background: linear-gradient(145deg, var(--surface-color), rgba(17, 24, 39, 0.8)) !important;
+    border: var(--glass-border) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 1.5rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem !important;
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Global Search Bar */
+#global-search {
+    background: rgba(17, 24, 39, 0.7) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 0.75rem 3.5rem 0.75rem 3rem !important;
+    border-radius: var(--radius-xl) !important;
+    width: 400px !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#global-search:focus {
+    width: 450px !important;
+    background: rgba(31, 41, 55, 0.9) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 8px 24px rgba(0,0,0,0.4) !important;
+}
+
+.search-bar i.fa-search {
+    left: 1.25rem !important;
+    color: var(--text-muted) !important;
+    z-index: 10;
+    transition: color 0.3s ease !important;
+}
+
+.search-bar:focus-within i.fa-search {
+    color: var(--primary-color) !important;
+}

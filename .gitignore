@@ -1,0 +1,65 @@
+# =========================================================================
+# Nexus CRM — Git Ignore Rules
+# Centralized rules to prevent committing build outputs, local DBs, and virtual envs.
+# =========================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Caches & Tests
+.pytest_cache/
+.tox/
+.coverage
+.cache
+htmlcov/
+
+# Local Python Environments
+venv/
+.venv/
+env/
+ENV/
+ENV/local/
+crm/backend/venv/
+
+# PyInstaller / Build Artifacts
+crm/backend/build/
+crm/backend/dist/
+build/
+dist/
+
+# Keep NexusCRM.spec for custom build configurations
+# We explicitly allow NexusCRM.spec but ignore all other dynamically generated spec files
+*.spec
+!crm/backend/NexusCRM.spec
+
+# Database Files (Local SQLite instance and backups)
+crm/backend/database/*.db
+crm/backend/database/crm.db
+!crm/backend/database/schema.sql
+
+# Log Files & Directories
+crm/backend/logs/
+*.log
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.project
+.pydevproject
+.settings/
+
+# Operating System Artifacts
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
