@@ -147,5 +147,5 @@ def seed():
 
 
 if __name__ == '__main__':
-    print("Seeding Nexus CRM database...\n")
+    print("Seeding Streamux CRM database...\n")
     seed()

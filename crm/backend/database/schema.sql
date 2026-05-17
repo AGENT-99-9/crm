@@ -1,5 +1,5 @@
 -- =============================================================
--- Nexus CRM — Enterprise Schema
+-- Streamux CRM — Enterprise Schema
 -- Normalized, indexed, with audit columns and soft deletes.
 -- =============================================================
 

@@ -15,7 +15,7 @@ if __name__ == '__main__':
         # If running as executable, store database in user's AppData or Home directory
         if getattr(sys, 'frozen', False):
             home_dir = os.path.expanduser("~")
-            db_dir = os.path.join(home_dir, '.nexus_crm')
+            db_dir = os.path.join(home_dir, '.streamux_crm')
             os.makedirs(db_dir, exist_ok=True)
             os.environ['DATABASE_PATH'] = os.path.join(db_dir, 'crm.db')
     except Exception as e:
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     time.sleep(1.5)
     
     # Open the default web browser to the local application
-    print(f"Opening Nexus CRM in your web browser at http://127.0.0.1:{PORT}")
+    print(f"Opening Streamux CRM in your web browser at http://127.0.0.1:{PORT}")
     webbrowser.open(f"http://127.0.0.1:{PORT}")
     
     # Keep the main thread alive so the server continues running
@@ -41,4 +41,4 @@ if __name__ == '__main__':
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        print("Shutting down Nexus CRM.")
+        print("Shutting down Streamux CRM.")

@@ -1,5 +1,5 @@
 /**
- * Nexus CRM — Core Bootstrap & Router
+ * Streamux CRM — Core Bootstrap & Router
  * Centralizes DOM manipulation and component orchestration.
  * Completely rewritten to prevent XSS and separate concerns.
  */
@@ -40,15 +40,15 @@ function clearDOM(elementId) {
 }
 
 // --- BOOTSTRAP & ROUTING ---
-const NexusApp = (() => {
+const StreamuxApp = (() => {
     
     async function init() {
-        NexusToast.init();
+        StreamuxToast.init();
         setupNavigation();
         setupGlobalSearch();
         
         try {
-            const user = await NexusAPI.me();
+            const user = await StreamuxAPI.me();
             handleSuccessfulLogin(user);
         } catch (e) {
             showLoginView();
@@ -79,9 +79,9 @@ const NexusApp = (() => {
 
         // Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
-            await NexusAPI.logout();
+            await StreamuxAPI.logout();
             showLoginView();
-            NexusToast.success("Logged out successfully");
+            StreamuxToast.success("Logged out successfully");
         });
 
         // Login
@@ -90,9 +90,9 @@ const NexusApp = (() => {
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
             try {
-                const res = await NexusAPI.login(u, p);
+                const res = await StreamuxAPI.login(u, p);
                 handleSuccessfulLogin(res.user);
-                NexusToast.success("Welcome back!");
+                StreamuxToast.success("Welcome back!");
             } catch (err) {
                 const errorEl = document.getElementById('login-error');
                 errorEl.textContent = err.message || "Invalid credentials";
@@ -106,9 +106,9 @@ const NexusApp = (() => {
             const u = document.getElementById('reg-username').value;
             const p = document.getElementById('reg-password').value;
             try {
-                const res = await NexusAPI.register(u, p);
+                const res = await StreamuxAPI.register(u, p);
                 handleSuccessfulLogin(res.user);
-                NexusToast.success("Account created successfully!");
+                StreamuxToast.success("Account created successfully!");
             } catch (err) {
                 const errorEl = document.getElementById('register-error');
                 errorEl.textContent = err.message || "Failed to register";
@@ -151,12 +151,12 @@ const NexusApp = (() => {
     return { init, showLoginView, toggleAuth };
 })();
 
-window.toggleAuth = NexusApp.toggleAuth;
+window.toggleAuth = StreamuxApp.toggleAuth;
 
 // --- DASHBOARD CONTROLLER ---
 async function loadDashboard() {
     try {
-        const data = await NexusAPI.dashboard();
+        const data = await StreamuxAPI.dashboard();
         
         // Render Stats
         if (data.stats) {
@@ -188,7 +188,7 @@ async function loadDashboard() {
         }
 
     } catch (e) {
-        NexusToast.error("Failed to load dashboard data");
+        StreamuxToast.error("Failed to load dashboard data");
     }
 }
 
@@ -223,7 +223,7 @@ function renderSimpleList(containerId, items, dateField, isOverdue = false) {
 // --- CLIENT CONTROLLER ---
 async function loadAllClients(query = '') {
     try {
-        const clients = query.length >= 2 ? await NexusAPI.searchClients(query) : await NexusAPI.getClients();
+        const clients = query.length >= 2 ? await StreamuxAPI.searchClients(query) : await StreamuxAPI.getClients();
         const tbody = document.querySelector('#all-clients-table tbody');
         tbody.innerHTML = '';
         
@@ -248,12 +248,12 @@ async function loadAllClients(query = '') {
             tbody.appendChild(tr);
         });
     } catch (e) {
-        NexusToast.error("Failed to load clients");
+        StreamuxToast.error("Failed to load clients");
     }
 }
 
 window.openClientModal = function(client = null) {
-    NexusModal.open('client-modal', (modal) => {
+    StreamuxModal.open('client-modal', (modal) => {
         const form = document.getElementById('client-form');
         form.reset();
         document.getElementById('client-id').value = '';
@@ -290,16 +290,16 @@ document.getElementById('client-form').addEventListener('submit', async (e) => {
     };
     
     try {
-        if (id) await NexusAPI.updateClient(id, data);
-        else await NexusAPI.createClient(data);
+        if (id) await StreamuxAPI.updateClient(id, data);
+        else await StreamuxAPI.createClient(data);
         
-        NexusModal.close('client-modal');
-        NexusToast.success("Client saved successfully");
+        StreamuxModal.close('client-modal');
+        StreamuxToast.success("Client saved successfully");
         loadDashboard();
         if(document.getElementById('clients-page').style.display !== 'none') loadAllClients();
     } catch (err) {
-        if(err.field) NexusModal.showError('client-form', `client-${err.field.replace('_','-')}`, err.message);
-        else NexusToast.error(err.message);
+        if(err.field) StreamuxModal.showError('client-form', `client-${err.field.replace('_','-')}`, err.message);
+        else StreamuxToast.error(err.message);
     } finally {
         btn.disabled = false;
     }
@@ -308,7 +308,7 @@ document.getElementById('client-form').addEventListener('submit', async (e) => {
 async function viewClient(id) {
     try {
         currentClientId = id;
-        const client = await NexusAPI.getClient(id);
+        const client = await StreamuxAPI.getClient(id);
         
         document.getElementById('cv-name').textContent = client.name;
         document.getElementById('cv-phone').textContent = client.phone || '-';
@@ -335,29 +335,29 @@ async function viewClient(id) {
         }
         
         document.getElementById('cv-edit-btn').onclick = () => {
-            NexusModal.close('client-view-modal');
+            StreamuxModal.close('client-view-modal');
             openClientModal(client);
         };
         
-        NexusModal.open('client-view-modal');
+        StreamuxModal.open('client-view-modal');
     } catch (e) {
-        NexusToast.error("Failed to load client details");
+        StreamuxToast.error("Failed to load client details");
     }
 }
 
 async function deleteClient(id) {
     if(confirm("Are you sure you want to delete this client?")) {
         try {
-            await NexusAPI.deleteClient(id);
-            NexusToast.success("Client deleted");
+            await StreamuxAPI.deleteClient(id);
+            StreamuxToast.success("Client deleted");
             loadAllClients();
             loadDashboard();
-        } catch(e) { NexusToast.error(e.message); }
+        } catch(e) { StreamuxToast.error(e.message); }
     }
 }
 
 // Initialize on DOM load
-document.addEventListener('DOMContentLoaded', NexusApp.init);
+document.addEventListener('DOMContentLoaded', StreamuxApp.init);
 
 window.openAppointmentModalFromClient = async function() {
     if(!currentClientId) return;
@@ -386,7 +386,7 @@ window.exportClientsCSV = async function() {
         a.remove();
         window.URL.revokeObjectURL(url);
     } catch(e) {
-        NexusToast.error(e.message);
+        StreamuxToast.error(e.message);
     }
 }
 
@@ -397,7 +397,7 @@ window.deleteClient = deleteClient;
 // --- APPOINTMENTS CONTROLLER ---
 window.loadAppointments = async function() {
     try {
-        const appts = await NexusAPI.getAppointments();
+        const appts = await StreamuxAPI.getAppointments();
         const list = clearDOM('appointments-list');
         if(appts.length === 0) {
             list.appendChild(el('p', { className: 'text-secondary', style: { padding: '1rem' } }, 'No appointments found.'));
@@ -423,13 +423,13 @@ window.loadAppointments = async function() {
             );
             list.appendChild(row);
         });
-    } catch(e) { NexusToast.error("Failed to load appointments"); }
+    } catch(e) { StreamuxToast.error("Failed to load appointments"); }
 }
 
 window.openAppointmentModal = async function(appt = null) {
     // Preload clients into the select dropdown
     try {
-        const clients = await NexusAPI.getClients();
+        const clients = await StreamuxAPI.getClients();
         const selectEl = document.getElementById('appt-client-id');
         selectEl.innerHTML = '<option value="">-- General (No Client) --</option>';
         clients.forEach(c => {
@@ -437,7 +437,7 @@ window.openAppointmentModal = async function(appt = null) {
         });
     } catch(e) { console.error("Failed to load clients for modal"); }
 
-    NexusModal.open('appointment-modal', (modal) => {
+    StreamuxModal.open('appointment-modal', (modal) => {
         const form = document.getElementById('appointment-form');
         form.reset();
         document.getElementById('appt-id').value = '';
@@ -457,9 +457,9 @@ window.openAppointmentModal = async function(appt = null) {
 
 async function editAppointment(id) {
     try {
-        const appt = await NexusAPI.getAppointment(id);
+        const appt = await StreamuxAPI.getAppointment(id);
         openAppointmentModal(appt);
-    } catch(e) { NexusToast.error("Could not load appointment"); }
+    } catch(e) { StreamuxToast.error("Could not load appointment"); }
 }document.getElementById('appointment-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
@@ -476,16 +476,16 @@ async function editAppointment(id) {
     };
     
     try {
-        if(id) await NexusAPI.updateAppointment(id, data);
-        else await NexusAPI.createAppointment(data);
+        if(id) await StreamuxAPI.updateAppointment(id, data);
+        else await StreamuxAPI.createAppointment(data);
         
-        NexusModal.close('appointment-modal');
-        NexusToast.success("Appointment saved");
+        StreamuxModal.close('appointment-modal');
+        StreamuxToast.success("Appointment saved");
         loadAppointments();
         loadDashboard();
     } catch(err) {
-        if(err.field) NexusModal.showError('appointment-form', `appt-${err.field.replace('_','-')}`, err.message);
-        else NexusToast.error(err.message);
+        if(err.field) StreamuxModal.showError('appointment-form', `appt-${err.field.replace('_','-')}`, err.message);
+        else StreamuxToast.error(err.message);
     } finally {
         btn.disabled = false;
     }
@@ -494,18 +494,18 @@ async function editAppointment(id) {
 async function deleteAppointment(id) {
     if(confirm("Delete this appointment?")) {
         try {
-            await NexusAPI.deleteAppointment(id);
-            NexusToast.success("Appointment deleted");
+            await StreamuxAPI.deleteAppointment(id);
+            StreamuxToast.success("Appointment deleted");
             loadAppointments();
             loadDashboard();
-        } catch(e) { NexusToast.error(e.message); }
+        } catch(e) { StreamuxToast.error(e.message); }
     }
 }
 
 // --- FOLLOWUPS CONTROLLER ---
 window.loadFollowups = async function() {
     try {
-        const fus = await NexusAPI.getFollowups();
+        const fus = await StreamuxAPI.getFollowups();
         const list = clearDOM('all-followups-list');
         if(fus.length === 0) {
             list.appendChild(el('p', { className: 'text-secondary', style: { padding: '1rem' } }, 'No follow-ups found.'));
@@ -529,13 +529,13 @@ window.loadFollowups = async function() {
             );
             list.appendChild(row);
         });
-    } catch(e) { NexusToast.error("Failed to load follow-ups"); }
+    } catch(e) { StreamuxToast.error("Failed to load follow-ups"); }
 }
 
 window.openFollowupModal = async function(fu = null) {
     // Preload clients into the select dropdown
     try {
-        const clients = await NexusAPI.getClients();
+        const clients = await StreamuxAPI.getClients();
         const selectEl = document.getElementById('fu-client-id');
         selectEl.innerHTML = '<option value="">-- General (No Client) --</option>';
         clients.forEach(c => {
@@ -543,7 +543,7 @@ window.openFollowupModal = async function(fu = null) {
         });
     } catch(e) { console.error("Failed to load clients for modal"); }
 
-    NexusModal.open('followup-modal', (modal) => {
+    StreamuxModal.open('followup-modal', (modal) => {
         const form = document.getElementById('followup-form');
         form.reset();
         document.getElementById('fu-modal-title').textContent = fu ? 'Edit Follow-Up' : 'Add Follow-Up';
@@ -562,9 +562,9 @@ window.openFollowupModal = async function(fu = null) {
 
 async function editFollowup(id) {
     try {
-        const fu = await NexusAPI.getFollowup(id);
+        const fu = await StreamuxAPI.getFollowup(id);
         openFollowupModal(fu);
-    } catch(e) { NexusToast.error("Could not load follow-up"); }
+    } catch(e) { StreamuxToast.error("Could not load follow-up"); }
 }
 
 document.getElementById('followup-form').addEventListener('submit', async (e) => {
@@ -582,19 +582,19 @@ document.getElementById('followup-form').addEventListener('submit', async (e) =>
     };
     
     try {
-        if(id) await NexusAPI.updateFollowup(id, data);
-        else await NexusAPI.createFollowup(data);
+        if(id) await StreamuxAPI.updateFollowup(id, data);
+        else await StreamuxAPI.createFollowup(data);
         
-        NexusModal.close('followup-modal');
-        NexusToast.success("Follow-up saved");
+        StreamuxModal.close('followup-modal');
+        StreamuxToast.success("Follow-up saved");
         loadFollowups();
         loadDashboard();
         if (document.getElementById('client-view-modal').classList.contains('active')) {
             viewClient(currentClientId); 
         }
     } catch(err) {
-        if(err.field) NexusModal.showError('followup-form', `fu-${err.field.replace('_','-')}`, err.message);
-        else NexusToast.error(err.message);
+        if(err.field) StreamuxModal.showError('followup-form', `fu-${err.field.replace('_','-')}`, err.message);
+        else StreamuxToast.error(err.message);
     } finally {
         btn.disabled = false;
     }
@@ -603,11 +603,11 @@ document.getElementById('followup-form').addEventListener('submit', async (e) =>
 async function deleteFollowup(id) {
     if(confirm("Delete this follow-up?")) {
         try {
-            await NexusAPI.deleteFollowup(id);
-            NexusToast.success("Follow-up deleted");
+            await StreamuxAPI.deleteFollowup(id);
+            StreamuxToast.success("Follow-up deleted");
             loadFollowups();
             loadDashboard();
-        } catch(e) { NexusToast.error(e.message); }
+        } catch(e) { StreamuxToast.error(e.message); }
     }
 }
 
@@ -654,7 +654,7 @@ function setupGlobalSearch() {
 // --- SETTINGS & REMINDERS ---
 window.loadSettings = async function() {
     try {
-        const settings = await NexusAPI.getSettings();
+        const settings = await StreamuxAPI.getSettings();
         if(settings) {
             document.getElementById('setting-reminder-mins').value = settings.reminder_before_minutes || 15;
             document.getElementById('setting-dark-mode').value = settings.dark_mode === undefined ? 1 : settings.dark_mode;
@@ -669,14 +669,14 @@ document.getElementById('settings-form').addEventListener('submit', async (e) =>
     const dark = document.getElementById('setting-dark-mode').value;
     
     try {
-        await NexusAPI.updateSettings({
+        await StreamuxAPI.updateSettings({
             reminder_before_minutes: parseInt(mins), 
             dark_mode: parseInt(dark)
         });
         applyTheme(parseInt(dark));
-        NexusToast.success("Settings saved!");
+        StreamuxToast.success("Settings saved!");
     } catch(err) {
-        NexusToast.error("Failed to save settings");
+        StreamuxToast.error("Failed to save settings");
     }
 });
 
@@ -707,7 +707,7 @@ async function startReminders() {
 
     const check = async () => {
         try {
-            const data = await NexusAPI.getReminders();
+            const data = await StreamuxAPI.getReminders();
             let count = data.appointments.length + data.followups.length;
             const badge = document.getElementById('notif-count');
             const list = document.getElementById('notif-list');

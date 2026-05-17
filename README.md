@@ -1,6 +1,6 @@
-# 🚀 Nexus CRM — Enterprise Executive Dashboard
+# 🚀 Streamux CRM — Enterprise Executive Dashboard
 
-Welcome to **Nexus CRM**, a premium, high-fidelity Client Relationship Management (CRM) platform designed specifically for executives and CEOs. Nexus CRM bridges a state-of-the-art glassmorphism Single Page Application (SPA) frontend with a production-ready Python Flask backend and an optimized SQLite database schema. It is built to run flawlessly in local development as well as compile into a standalone, one-click desktop executable.
+Welcome to **Streamux CRM**, a premium, high-fidelity Client Relationship Management (CRM) platform designed specifically for executives and CEOs. Streamux CRM bridges a state-of-the-art glassmorphism Single Page Application (SPA) frontend with a production-ready Python Flask backend and an optimized SQLite database schema. It is built to run flawlessly in local development as well as compile into a standalone, one-click desktop executable.
 
 ---
 
@@ -13,7 +13,7 @@ Welcome to **Nexus CRM**, a premium, high-fidelity Client Relationship Managemen
 - **🔍 Global Omni-Search**: Instant search bar with real-time indexing across client names, corporate divisions, products, and contact numbers. Backed by a lightning-fast keyboard shortcut (`Ctrl + K`).
 - **⚙️ Dynamic User Settings**: Scoped settings panel featuring personal adjustments for reminder triggers and responsive UI themes.
 - **🎨 Glassmorphic Premium UI**: Beautiful dark mode styled with harmonized HSL variables, fluid gradients, glass-like transparency backdrops, responsive grid elements, and smooth micro-animations.
-- **📦 Desktop-Ready Executable**: Automatic cross-platform bundling script utilizing PyInstaller to package the entire backend and frontend into a single `NexusCRM` binary that launches an isolated Flask thread and auto-opens in the default browser.
+- **📦 Desktop-Ready Executable**: Automatic cross-platform bundling script utilizing PyInstaller to package the entire backend and frontend into a single `StreamuxCRM` binary that launches an isolated Flask thread and auto-opens in the default browser.
 
 ---
 
@@ -45,7 +45,7 @@ graph TD
 
 ## ⚙️ Local Development Setup
 
-To run Nexus CRM on your local development machine, follow the steps below:
+To run Streamux CRM on your local development machine, follow the steps below:
 
 ### 1. Clone & Navigate
 ```bash
@@ -54,7 +54,7 @@ cd internal_tools/crm/backend
 ```
 
 ### 2. Configure Virtual Environment
-Create and activate a isolated virtual environment to keep your global packages clean:
+Create and activate an isolated virtual environment to keep your global packages clean:
 ```bash
 # Windows
 python -m venv venv
@@ -94,14 +94,14 @@ Use these pre-seeded credentials to explore the platform:
 
 ## 📦 Compiling Standalone Desktop Executable
 
-Nexus CRM contains a dedicated automated build utility (`build.py`) that uses **PyInstaller** to compile the complete Flask server, its database blueprints, and the static HTML/CSS/JS frontend into a **single binary file** that requires zero runtime installations.
+Streamux CRM contains a dedicated automated build utility (`build.py`) that uses **PyInstaller** to compile the complete Flask server, its database blueprints, and the static HTML/CSS/JS frontend into a **single binary file** that requires zero runtime installations.
 
 ### How it works:
 1. `build.py` checks if PyInstaller is present (and installs it if missing).
 2. It detects the operating system to configure file separators.
-3. It kills any active background processes running `NexusCRM.exe` to prevent write locks.
-4. It reads `NexusCRM.spec` and compiles the project into a compact, console-free desktop app.
-5. In the packaged executable, `launcher.py` starts the server in an isolated thread, opens your browser automatically, and serves the frontend out of the internal temporary `sys._MEIPASS` folder. The active database is securely placed in `~/.nexus_crm/crm.db` inside your OS user's directory.
+3. It kills any active background processes running `StreamuxCRM.exe` to prevent write locks.
+4. It reads `StreamuxCRM.spec` and compiles the project into a compact, console-free desktop app.
+5. In the packaged executable, `launcher.py` starts the server in an isolated thread, opens your browser automatically, and serves the frontend out of the internal temporary `sys._MEIPASS` folder. The active database is securely placed in `~/.streamux_crm/crm.db` inside your OS user's directory.
 
 ### Build Executable:
 Ensure your virtual environment is active and run:
@@ -109,11 +109,9 @@ Ensure your virtual environment is active and run:
 python build.py
 ```
 After completion, your executable is built under:
-- **Windows**: `crm/backend/dist/NexusCRM.exe`
-- **macOS/Linux**: `crm/backend/dist/NexusCRM`
+- **Windows**: `crm/backend/dist/StreamuxCRM.exe`
+- **macOS/Linux**: `crm/backend/dist/StreamuxCRM`
 
 ---
-
-
 
 *Crafted with 🚀 by the Deepmind Antigravity Pair Programming team for Streamux AI.*

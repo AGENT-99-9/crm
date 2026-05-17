@@ -1,5 +1,5 @@
 """
-Nexus CRM — Application Factory.
+Streamux CRM — Application Factory.
 Production-grade Flask application with centralized configuration,
 logging, error handling, and blueprint registration.
 """
@@ -37,7 +37,7 @@ def create_app(config_class=None):
 
     # Setup logging
     logger = setup_logger(app)
-    logger.info("Starting Nexus CRM application")
+    logger.info("Starting Streamux CRM application")
 
     # Initialize extensions
     CORS(app, supports_credentials=True, origins=app.config.get('CORS_ORIGINS', '*'))

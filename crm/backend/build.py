@@ -5,13 +5,13 @@ import platform
 import shutil
 
 def build_executable():
-    print("🚀 Starting Nexus CRM Build Process...")
+    print("🚀 Starting Streamux CRM Build Process...")
     
     # Forcefully kill the background executable if it's already running (Windows)
     if platform.system() == 'Windows':
-        print("Checking for existing NexusCRM instances...")
+        print("Checking for existing StreamuxCRM instances...")
         try:
-            subprocess.run(["taskkill", "/F", "/IM", "NexusCRM.exe"], capture_output=True)
+            subprocess.run(["taskkill", "/F", "/IM", "StreamuxCRM.exe"], capture_output=True)
         except Exception:
             pass
 
@@ -30,7 +30,7 @@ def build_executable():
     
     command = [
         "pyinstaller",
-        "--name", "NexusCRM",
+        "--name", "StreamuxCRM",
         "--noconsole",
         "--onefile",
         "--add-data", frontend_path,
@@ -49,11 +49,11 @@ def build_executable():
     print("\n✅ Build complete!")
     print(f"Your executable is ready in the 'dist' folder.")
     if platform.system() == 'Windows':
-        print("Look for: dist\\NexusCRM.exe")
+        print("Look for: dist\\StreamuxCRM.exe")
     elif platform.system() == 'Darwin':
-        print("Look for: dist/NexusCRM.app or dist/NexusCRM")
+        print("Look for: dist/StreamuxCRM.app or dist/StreamuxCRM")
     else:
-        print("Look for: dist/NexusCRM")
+        print("Look for: dist/StreamuxCRM")
 
 if __name__ == '__main__':
     build_executable()

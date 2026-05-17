@@ -1,9 +1,9 @@
 /**
- * Nexus CRM — Centralized API Client
+ * Streamux CRM — Centralized API Client
  * Handles all HTTP communication with the backend.
  * Provides consistent error handling, auth redirect, and response parsing.
  */
-const NexusAPI = (() => {
+const StreamuxAPI = (() => {
     const BASE = '/api';
 
     async function request(url, options = {}) {
@@ -17,7 +17,7 @@ const NexusAPI = (() => {
             const res = await fetch(BASE + url, options);
 
             if (res.status === 401) {
-                NexusApp.showLoginView();
+                StreamuxApp.showLoginView();
                 throw new Error('Unauthorized');
             }
 

@@ -1,8 +1,8 @@
 /**
- * Nexus CRM — Toast Notification System
+ * Streamux CRM — Toast Notification System
  * Handles non-blocking user feedback.
  */
-const NexusToast = (() => {
+const StreamuxToast = (() => {
     let container = null;
 
     function init() {

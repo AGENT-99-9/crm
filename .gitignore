@@ -1,5 +1,5 @@
 # =========================================================================
-# Nexus CRM — Git Ignore Rules
+# Streamux CRM — Git Ignore Rules
 # Centralized rules to prevent committing build outputs, local DBs, and virtual envs.
 # =========================================================================
 
@@ -29,10 +29,10 @@ crm/backend/dist/
 build/
 dist/
 
-# Keep NexusCRM.spec for custom build configurations
-# We explicitly allow NexusCRM.spec but ignore all other dynamically generated spec files
+# Keep StreamuxCRM.spec for custom build configurations
+# We explicitly allow StreamuxCRM.spec but ignore all other dynamically generated spec files
 *.spec
-!crm/backend/NexusCRM.spec
+!crm/backend/StreamuxCRM.spec
 
 # Database Files (Local SQLite instance and backups)
 crm/backend/database/*.db

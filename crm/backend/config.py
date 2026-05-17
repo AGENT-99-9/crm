@@ -12,7 +12,7 @@ class Config:
     
     import sys
     if getattr(sys, 'frozen', False):
-        _fallback_db = os.path.join(os.path.expanduser('~'), '.nexus_crm', 'crm.db')
+        _fallback_db = os.path.join(os.path.expanduser('~'), '.streamux_crm', 'crm.db')
     else:
         _fallback_db = os.path.join(BASE_DIR, 'database', 'crm.db')
         

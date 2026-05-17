@@ -1,8 +1,8 @@
 /**
- * Nexus CRM — Modal Manager
+ * Streamux CRM — Modal Manager
  * Handles opening, closing, and forms within modals.
  */
-const NexusModal = (() => {
+const StreamuxModal = (() => {
     function open(modalId, setupCallback = null) {
         const modal = document.getElementById(modalId);
         if (!modal) return;
@@ -50,7 +50,7 @@ const NexusModal = (() => {
                 input.removeEventListener('input', onInput);
             });
         } else {
-            NexusToast.error(message);
+            StreamuxToast.error(message);
         }
     }
 
@@ -73,4 +73,4 @@ const NexusModal = (() => {
 })();
 
 // Global wrapper for inline onclick compatibility
-window.closeModal = NexusModal.close;
+window.closeModal = StreamuxModal.close;
